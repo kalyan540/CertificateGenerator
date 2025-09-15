@@ -50,11 +50,11 @@ COPY . .
 
 # Create necessary directories and set permissions
 RUN mkdir -p /app/certs_output && \
-    chown -R appuser:appuser /app
+    chown -R appuser:appuser /app && \
     chmod -R 755 /app/certs_output
 
 RUN mkdir -p /app/certs_output/devices && \
-    chown -R appuser:appuser /app/certs_output
+    chown -R appuser:appuser /app/certs_output && \
     chmod -R 755 /app/certs_output/devices
 
 
