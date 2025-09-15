@@ -62,7 +62,7 @@ chmod +x setup.sh
    docker-compose up --build
    ```
 
-4. **Access Application**: Open http://localhost:5003
+4. **Access Application**: Open https://data.eknow.in
 
 ## Default Credentials
 
@@ -151,7 +151,7 @@ The application generates the following files for each device:
    - Verify file permissions (ca.key should be 600)
 
 4. **Frontend can't connect to backend**:
-   - Check if backend is running: `curl http://localhost:5003/health`
+   - Check if backend is running: `curl https://data.eknow.in/health`
    - Verify CORS settings in backend
    - Check browser console for errors
 

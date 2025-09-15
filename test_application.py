@@ -11,7 +11,7 @@ import os
 from pathlib import Path
 
 # Configuration
-BASE_URL = "http://localhost:5003"
+BASE_URL = "https://data.eknow.in"
 FRONTEND_URL = "http://localhost:5001"
 TEST_USERNAME = "admin"
 TEST_PASSWORD = "admin123"

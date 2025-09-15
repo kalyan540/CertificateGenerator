@@ -39,7 +39,7 @@ app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 # Configure CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5001", "http://localhost:5003", "https://api.eknow.in"],  # React development server
+    allow_origins=["http://localhost:5001", "https://data.eknow.in", "https://api.eknow.in"],  # React development server
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
