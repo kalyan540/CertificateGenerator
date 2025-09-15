@@ -149,7 +149,7 @@ ufw allow 22    # SSH
 ufw allow 80    # HTTP
 ufw allow 443   # HTTPS
 ufw deny 5432   # Block direct PostgreSQL access
-ufw deny 5001   # Block direct backend access
+ufw deny 5003   # Block direct backend access
 ```
 
 ### **Database Security**

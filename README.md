@@ -62,7 +62,7 @@ chmod +x setup.sh
    docker-compose up --build
    ```
 
-4. **Access Application**: Open http://localhost:5001
+4. **Access Application**: Open http://localhost:5003
 
 ## Default Credentials
 
@@ -84,7 +84,7 @@ chmod +x setup.sh
    ```bash
    cd backend
    pip install -r requirements.txt
-   uvicorn app.main:app --reload --host 0.0.0.0 --port 5001
+   uvicorn app.main:app --reload --host 0.0.0.0 --port 5003
    ```
 
 2. **Frontend** (Node.js 16+):
@@ -128,11 +128,11 @@ The application generates the following files for each device:
 
 ### Common Issues
 
-1. **Port conflicts**: If ports 5001, 5001, or 5432 are in use:
+1. **Port conflicts**: If ports 5003, 5003, or 5432 are in use:
    ```bash
    # Check what's using the ports
-   netstat -an | findstr "5001\|5001\|5432"  # Windows
-   lsof -i :5001,5001,5432                   # Linux/Mac
+   netstat -an | findstr "5003\|5003\|5432"  # Windows
+   lsof -i :5003,5003,5432                   # Linux/Mac
    ```
 
 2. **Docker issues**:
@@ -151,7 +151,7 @@ The application generates the following files for each device:
    - Verify file permissions (ca.key should be 600)
 
 4. **Frontend can't connect to backend**:
-   - Check if backend is running: `curl http://localhost:5001/health`
+   - Check if backend is running: `curl http://localhost:5003/health`
    - Verify CORS settings in backend
    - Check browser console for errors
 
@@ -178,7 +178,7 @@ For development with hot reload:
 # Backend only
 cd backend
 pip install -r requirements.txt
-uvicorn app.main:app --reload --host 0.0.0.0 --port 5001
+uvicorn app.main:app --reload --host 0.0.0.0 --port 5003
 
 # Frontend only
 cd frontend

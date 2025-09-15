@@ -129,14 +129,14 @@ sleep 30
 if docker-compose ps | grep -q "Up"; then
     echo "✅ Application started successfully!"
     echo
-    echo "🌐 Access the application at: http://localhost:5001"
+    echo "🌐 Access the application at: http://localhost:5003"
     echo
     echo "🔑 Default login credentials:"
     echo "   Username: admin"
     echo "   Password: admin123"
     echo
-    echo "📖 API Documentation: http://localhost:5001/docs"
-    echo "🏥 Health Check: http://localhost:5001/health"
+    echo "📖 API Documentation: http://localhost:5003/docs"
+    echo "🏥 Health Check: http://localhost:5003/health"
     echo
     echo "To stop the application: docker-compose down"
     echo "To view logs: docker-compose logs -f"
