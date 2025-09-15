@@ -108,12 +108,6 @@ const Login = () => {
               {isLoading ? 'Signing in...' : 'Sign in'}
             </button>
           </div>
-
-          <div className="text-center text-sm text-gray-600">
-            <p>Default credentials:</p>
-            <p>Username: <span className="font-mono bg-gray-100 px-1 rounded">admin</span></p>
-            <p>Password: <span className="font-mono bg-gray-100 px-1 rounded">admin123</span></p>
-          </div>
         </form>
       </div>
     </div>
