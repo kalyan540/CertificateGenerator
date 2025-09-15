@@ -84,7 +84,7 @@ chmod +x setup.sh
    ```bash
    cd backend
    pip install -r requirements.txt
-   uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+   uvicorn app.main:app --reload --host 0.0.0.0 --port 3001
    ```
 
 2. **Frontend** (Node.js 16+):
@@ -128,11 +128,11 @@ The application generates the following files for each device:
 
 ### Common Issues
 
-1. **Port conflicts**: If ports 3000, 8000, or 5432 are in use:
+1. **Port conflicts**: If ports 3000, 3001, or 5432 are in use:
    ```bash
    # Check what's using the ports
-   netstat -an | findstr "3000\|8000\|5432"  # Windows
-   lsof -i :3000,8000,5432                   # Linux/Mac
+   netstat -an | findstr "3000\|3001\|5432"  # Windows
+   lsof -i :3000,3001,5432                   # Linux/Mac
    ```
 
 2. **Docker issues**:
@@ -151,7 +151,7 @@ The application generates the following files for each device:
    - Verify file permissions (ca.key should be 600)
 
 4. **Frontend can't connect to backend**:
-   - Check if backend is running: `curl http://localhost:8000/health`
+   - Check if backend is running: `curl http://localhost:3001/health`
    - Verify CORS settings in backend
    - Check browser console for errors
 
@@ -178,7 +178,7 @@ For development with hot reload:
 # Backend only
 cd backend
 pip install -r requirements.txt
-uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+uvicorn app.main:app --reload --host 0.0.0.0 --port 3001
 
 # Frontend only
 cd frontend

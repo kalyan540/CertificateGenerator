@@ -11,7 +11,7 @@ import os
 from pathlib import Path
 
 # Configuration
-BASE_URL = "http://localhost:8000"
+BASE_URL = "http://localhost:3001"
 FRONTEND_URL = "http://localhost:3000"
 TEST_USERNAME = "admin"
 TEST_PASSWORD = "admin123"
