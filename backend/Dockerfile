@@ -52,6 +52,9 @@ COPY . .
 RUN mkdir -p /app/certs_output && \
     chown -R appuser:appuser /app
 
+RUN mkdir -p /app/certs_output/devices && \
+    chown -R appuser:appuser /app/certs_output
+
 
 # RUN mkdir -p /app/certs_output /app/certs_output/devices && \
 #     chown -R appuser:appuser /app && \
