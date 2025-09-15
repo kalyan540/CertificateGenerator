@@ -42,9 +42,9 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     environment:
-      - REACT_APP_API_URL=http://localhost:5001
+      - REACT_APP_API_URL=http://localhost:5003
     ports:
-      - "5001:80"
+      - "5003:80"
     depends_on:
       - backend
 
