@@ -115,8 +115,8 @@ if errorlevel 1 (
     echo    Username: admin
     echo    Password: admin123
     echo.
-    echo 📖 API Documentation: http://localhost:3001/docs
-    echo 🏥 Health Check: http://localhost:3001/health
+    echo 📖 API Documentation: http://localhost:5001/docs
+    echo 🏥 Health Check: http://localhost:5001/health
     echo.
     echo To stop the application: docker-compose down
     echo To view logs: docker-compose logs -f
