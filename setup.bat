@@ -109,7 +109,7 @@ if errorlevel 1 (
 ) else (
     echo ✅ Application started successfully!
     echo.
-    echo 🌐 Access the application at: http://localhost:3000
+    echo 🌐 Access the application at: http://localhost:5001
     echo.
     echo 🔑 Default login credentials:
     echo    Username: admin

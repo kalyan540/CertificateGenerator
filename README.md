@@ -62,7 +62,7 @@ chmod +x setup.sh
    docker-compose up --build
    ```
 
-4. **Access Application**: Open http://localhost:3000
+4. **Access Application**: Open http://localhost:5001
 
 ## Default Credentials
 
@@ -128,11 +128,11 @@ The application generates the following files for each device:
 
 ### Common Issues
 
-1. **Port conflicts**: If ports 3000, 3001, or 5432 are in use:
+1. **Port conflicts**: If ports 5001, 3001, or 5432 are in use:
    ```bash
    # Check what's using the ports
-   netstat -an | findstr "3000\|3001\|5432"  # Windows
-   lsof -i :3000,3001,5432                   # Linux/Mac
+   netstat -an | findstr "5001\|3001\|5432"  # Windows
+   lsof -i :5001,3001,5432                   # Linux/Mac
    ```
 
 2. **Docker issues**:
