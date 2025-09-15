@@ -6,7 +6,7 @@ import os
 class Settings(BaseSettings):
     # Database
     database_url: str = Field(
-        default="postgresql://postgres:postgres@localhost:5431/certificate_generator",
+        default="postgresql://postgres:postgres@localhost:5432/certificate_generator",
         env="DATABASE_URL"
     )
     

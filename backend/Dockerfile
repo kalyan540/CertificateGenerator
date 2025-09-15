@@ -52,6 +52,10 @@ COPY . .
 RUN mkdir -p /app/certs_output && \
     chown -R appuser:appuser /app
 
+
+# RUN mkdir -p /app/certs_output /app/certs_output/devices && \
+#     chown -R appuser:appuser /app && \
+#     chmod -R 755 /app/certs_output
 # Switch to non-root user
 USER appuser
 
