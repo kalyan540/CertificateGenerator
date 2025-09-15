@@ -2,16 +2,25 @@
 .env
 .env.local
 .env.production
+.env.staging
 
-# Certificate files
+# Certificate files (CRITICAL - Never commit private keys!)
 certs/*.key
 certs/*.crt
 certs/*.pem
 certs/*.p12
 certs/*.pfx
+certs/*.srl
+certs/temp_*
 
-# Generated certificates output
+# Generated certificates output (Contains sensitive data)
 certs_output/
+certs_output/**/*
+
+# Backup certificate files
+*.key.bak
+*.crt.bak
+*.pem.bak
 
 # Database
 *.db
@@ -77,3 +86,36 @@ logs/
 # Temporary files
 tmp/
 temp/
+
+# Production deployment files
+docker-compose.prod.yml
+docker-compose.override.yml
+.docker/
+deployment/
+k8s/
+
+# SSL/TLS certificates for production
+ssl/
+tls/
+nginx/ssl/
+
+# Production logs
+logs/
+*.log.*
+access.log
+error.log
+
+# Monitoring and metrics
+prometheus/
+grafana/
+
+# Secrets and keys (CRITICAL)
+secrets/
+keys/
+*.secret
+*.token
+
+# Production database dumps
+*.sql
+*.dump
+backup/

@@ -1,7 +1,10 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, Request
 from fastapi.security import HTTPBearer
 from sqlalchemy.orm import Session
 from datetime import timedelta
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.util import get_remote_address
+from slowapi.errors import RateLimitExceeded
 from ..database import get_db
 from ..auth import authenticate_user, create_access_token
 from ..schemas import UserLogin, Token
@@ -10,9 +13,12 @@ from ..config import settings
 router = APIRouter(prefix="/auth", tags=["authentication"])
 security = HTTPBearer()
 
+# Rate limiter - 5 login attempts per minute per IP
+limiter = Limiter(key_func=get_remote_address)
 
 @router.post("/login", response_model=Token)
-async def login(user_credentials: UserLogin, db: Session = Depends(get_db)):
+@limiter.limit("5/minute")
+async def login(request: Request, user_credentials: UserLogin, db: Session = Depends(get_db)):
     """
     Authenticate user and return JWT token
     """

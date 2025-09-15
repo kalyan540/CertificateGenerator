@@ -1,9 +1,12 @@
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 from datetime import datetime
 import os
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.util import get_remote_address
+from slowapi.errors import RateLimitExceeded
 from .database import engine, get_db
 from .models import Base
 from .auth import create_default_admin_user
@@ -17,6 +20,9 @@ try:
 except Exception as e:
     print(f"Database tables might already exist: {e}")
 
+# Create rate limiter
+limiter = Limiter(key_func=get_remote_address)
+
 # Create FastAPI app
 app = FastAPI(
     title="IoT Device Certificate Generator",
@@ -25,6 +31,10 @@ app = FastAPI(
     docs_url="/docs" if settings.debug else None,
     redoc_url="/redoc" if settings.debug else None
 )
+
+# Add rate limiting middleware
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
 # Configure CORS
 app.add_middleware(

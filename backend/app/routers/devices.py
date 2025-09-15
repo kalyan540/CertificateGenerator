@@ -1,10 +1,12 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, Request
 from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
 from typing import List
 from pathlib import Path
 import os
+from slowapi import Limiter
+from slowapi.util import get_remote_address
 from ..database import get_db
 from ..auth import get_current_user, verify_password
 from ..models import User, Device
@@ -13,9 +15,13 @@ from ..cert_generator import cert_generator
 
 router = APIRouter(prefix="/devices", tags=["devices"])
 
+# Rate limiter - 10 certificate generations per minute per user
+limiter = Limiter(key_func=get_remote_address)
 
 @router.post("/create", response_model=DeviceCreateResponse)
+@limiter.limit("10/minute")
 async def create_device_certificate(
+    request: Request,
     device_data: DeviceCreate,
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)

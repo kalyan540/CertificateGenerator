@@ -16,10 +16,31 @@ class CertificateGenerator:
         self.output_dir.mkdir(exist_ok=True, parents=True)
     
     def check_ca_certificates(self) -> bool:
-        """Check if CA certificates exist"""
+        """Check if CA certificates exist and have proper security"""
         ca_crt = self.certs_dir / "ca.crt"
         ca_key = self.certs_dir / "ca.key"
-        return ca_crt.exists() and ca_key.exists()
+        
+        if not (ca_crt.exists() and ca_key.exists()):
+            return False
+        
+        # Security check: Ensure CA private key has proper permissions (600)
+        try:
+            ca_key_stat = ca_key.stat()
+            # Check if permissions are too permissive (should be 600)
+            permissions = oct(ca_key_stat.st_mode)[-3:]
+            if permissions != '600':
+                print(f"WARNING: CA private key has insecure permissions {permissions}, should be 600")
+                # Try to fix permissions automatically
+                try:
+                    ca_key.chmod(0o600)
+                    print("✅ Fixed CA private key permissions to 600")
+                except Exception as e:
+                    print(f"❌ Failed to fix CA key permissions: {e}")
+                    raise FileNotFoundError(f"CA private key has insecure permissions ({permissions}). Please set to 600: chmod 600 {ca_key}")
+        except Exception as e:
+            print(f"Warning: Could not check CA key permissions: {e}")
+        
+        return True
     
     def generate_device_certificate(self, device_name: str, hostname: str = "localhost") -> Dict[str, str]:
         """
