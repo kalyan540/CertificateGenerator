@@ -7,7 +7,7 @@ services:
     environment:
       POSTGRES_DB: certificate_generator
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres123
+      POSTGRES_PASSWORD: postgres
     volumes:
       - postgres_data:/var/lib/postgresql/data
     # No ports exposed - internal only
@@ -23,7 +23,7 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     environment:
-      - DATABASE_URL=postgresql://postgres:postgres123@db:5432/certificate_generator
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/certificate_generator
       - JWT_SECRET_KEY=your-super-secret-jwt-key-change-in-production-make-it-very-long-and-random
       - DEBUG=false
       - DEFAULT_ADMIN_USERNAME=admin
@@ -72,6 +72,8 @@ services:
     restart: unless-stopped
     depends_on:
       - backend
+    volumes:
+      - ./frontend/build:/usr/share/nginx/html:ro
 
 volumes:
   postgres_data:
