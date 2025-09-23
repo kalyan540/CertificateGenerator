@@ -37,9 +37,31 @@ app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
 # Configure CORS
+cors_origins = [
+    "http://localhost:5001",  # Development
+    "http://localhost:3000",  # Alternative dev port
+    "https://data.eknow.in",  # Original domain
+    "https://api.eknow.in",   # Original API domain
+]
+
+# Add dynamic origins from environment
+import os
+if os.getenv("DOMAIN_NAME"):
+    domain = os.getenv("DOMAIN_NAME")
+    cors_origins.extend([
+        f"http://{domain}",
+        f"https://{domain}",
+    ])
+if os.getenv("API_DOMAIN"):
+    api_domain = os.getenv("API_DOMAIN")
+    cors_origins.extend([
+        f"http://{api_domain}",
+        f"https://{api_domain}",
+    ])
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5001", "https://data.eknow.in", "https://api.eknow.in"],  # React development server
+    allow_origins=cors_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

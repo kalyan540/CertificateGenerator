@@ -69,7 +69,7 @@ EXPOSE 5003
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD curl -f https://data.eknow.in/health || exit 1
+    CMD curl -f http://localhost:5003/health || exit 1
 
 # Run the application
 CMD ["gunicorn", "app.main:app", "-w", "4", "-k", "uvicorn.workers.UvicornWorker", "--bind", "0.0.0.0:5003", "--access-logfile", "-", "--error-logfile", "-"]
