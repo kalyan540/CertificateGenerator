@@ -96,7 +96,7 @@ chmod +x setup.sh
 
 3. **Database**:
    ```bash
-   docker run -p 5432:5432 -e POSTGRES_DB=certificate_generator -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres postgres:15
+   docker run -p 5433:5433 -e POSTGRES_DB=certificate_generator -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres postgres:15
    ```
 
 ## API Endpoints
@@ -128,11 +128,11 @@ The application generates the following files for each device:
 
 ### Common Issues
 
-1. **Port conflicts**: If ports 5003, 5003, or 5432 are in use:
+1. **Port conflicts**: If ports 5003, 5003, or 5433 are in use:
    ```bash
    # Check what's using the ports
-   netstat -an | findstr "5003\|5003\|5432"  # Windows
-   lsof -i :5003,5003,5432                   # Linux/Mac
+   netstat -an | findstr "5003\|5003\|5433"  # Windows
+   lsof -i :5003,5003,5433                   # Linux/Mac
    ```
 
 2. **Docker issues**:

@@ -124,7 +124,7 @@ DEBUG=false
 
 # Optional (with defaults)
 POSTGRES_HOST=db
-POSTGRES_PORT=5432
+POSTGRES_PORT=5433
 JWT_EXPIRE_MINUTES=1440
 ```
 
@@ -148,7 +148,7 @@ chmod 600 nginx/ssl/key.pem
 ufw allow 22    # SSH
 ufw allow 80    # HTTP
 ufw allow 443   # HTTPS
-ufw deny 5432   # Block direct PostgreSQL access
+ufw deny 5433   # Block direct PostgreSQL access
 ufw deny 5003   # Block direct backend access
 ```
 
