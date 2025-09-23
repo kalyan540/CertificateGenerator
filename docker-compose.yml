@@ -1,13 +1,29 @@
 # Certificate Generator - External Nginx & PostgreSQL Setup
-# Uses your existing nginx and PostgreSQL
+# Uses your existing nginx and includes PostgreSQL
 
 services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-certificate_generator}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5433"  # PostgreSQL on port 5433
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres}"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
   backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
     environment:
-      - DATABASE_URL=postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD}@${POSTGRES_HOST:-localhost}:${POSTGRES_PORT:-5432}/${POSTGRES_DB:-certificate_generator}
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD}@db:5433/${POSTGRES_DB:-certificate_generator}
       - JWT_SECRET_KEY=${JWT_SECRET_KEY}
       - DEBUG=false
       - DEFAULT_ADMIN_USERNAME=${DEFAULT_ADMIN_USERNAME:-admin}
@@ -20,6 +36,9 @@ services:
     ports:
       - "3001:3001"  # Backend runs on port 3001
     restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3001/health"]
       interval: 30s
@@ -38,3 +57,6 @@ services:
     restart: unless-stopped
     depends_on:
       - backend
+
+volumes:
+  postgres_data:
