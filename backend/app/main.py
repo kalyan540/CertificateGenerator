@@ -39,7 +39,7 @@ app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 # Configure CORS
 cors_origins = [
     "http://localhost:5001",  # Development
-    "http://localhost:3000",  # Alternative dev port
+    "http://localhost:5001",  # Alternative dev port
     "https://data.eknow.in",  # Original domain
     "https://api.eknow.in",   # Original API domain
 ]
